@@ -1,23 +1,27 @@
-# Subreddit Civilization
+# Subreddit Civilization - Multiplayer Reddit Strategy Game
 
-A massively multiplayer strategy and social simulation game where Redditors collectively build, expand, and compete as civilizations through daily decisions and community-driven gameplay on Reddit Interactive Posts.
+A massively multiplayer strategy and social simulation game where Redditors collectively build, expand, and compete as civilizations through daily decisions and community-driven gameplay on Reddit Interactive Posts. Experience the ultimate Reddit gaming experience with real-time voting, resource management, and procedural storytelling.
 
 ## Features
 
-- **Multiplayer Gameplay**: Each subreddit represents a civilization with unique resources and progress.
-- **Daily Decisions**: Community votes determine civilization outcomes via majority choice.
-- **Resource Management**: Balance food, culture, defense, technology, and morale.
-- **Era Progression**: Advance from Stone Age to Modern Era through strategic choices.
-- **Event System**: Dynamic events with procedural narratives and multiple outcomes.
-- **Leaderboards**: Real-time ranking of civilizations by prosperity score.
-- **Kiro Integration**: Automated game balancing, event generation, and workflow management.
+- **Massively Multiplayer**: Thousands of Redditors can participate simultaneously across different subreddits
+- **Community-Driven Decisions**: Daily voting determines civilization outcomes through majority rule
+- **Strategic Resource Management**: Balance food, culture, defense, technology, and morale for optimal growth
+- **Era Progression System**: Advance from Stone Age through Bronze, Iron, Medieval to Modern Era
+- **Dynamic Event Engine**: AI-powered procedural narratives with 100+ unique story variations
+- **Real-Time Leaderboards**: Live ranking system based on civilization prosperity scores
+- **Automated Game Balance**: Kiro-powered dynamic difficulty adjustment and workflow automation
+- **Cross-Platform Compatibility**: Responsive design for mobile and desktop Reddit users
+- **Localization Support**: Available in English, French, and Spanish
 
 ## Tech Stack
 
-- **Frontend**: Devvit Web (React + TypeScript + TailwindCSS + Framer Motion)
+- **Frontend**: Devvit Web (React + TypeScript + HTML + CSS + TailwindCSS + Framer Motion)
 - **Backend**: Devvit Cloud Runtime + Reddit API + Key-Value Store
 - **Automation**: Kiro (Specs, Hooks, Steering, Automation)
-- **Version Control**: GitHub
+- **Testing**: Vitest + Unit Tests
+- **Version Control**: Git + GitHub
+- **Deployment**: Reddit Developer Platform
 
 ## Project Structure
 
@@ -206,12 +210,31 @@ For questions or issues:
 - GitHub Issues: https://github.com/kawacukennedy/subreddit-civilization-game/issues
 - Reddit Community: r/devvit or r/GameOnReddit
 
+## Keywords
+
+reddit game, multiplayer strategy game, civilization building, community gaming, interactive posts, reddit app, devvit, kiro automation, procedural generation, social simulation, resource management, era progression, voting system, leaderboard, localization
+
+## SEO Optimization
+
+This project is optimized for discoverability with:
+- Comprehensive keyword integration
+- Detailed feature descriptions
+- Technical stack documentation
+- Clear setup and deployment guides
+- Open source licensing (MIT)
+
 ## Acknowledgments
 
-Built for the Reddit GameOnReddit challenge using Devvit and Kiro.
+Built for the Reddit GameOnReddit challenge using Devvit and Kiro. Special thanks to the Reddit developer community for their innovative platform.
 
 ## Contributors
 
-- Kawacu Kennedy (Project Lead)
+- Kawacu Kennedy (Project Lead & Developer)
 
-See CONTRIBUTING.md for how to join the team.
+See CONTRIBUTING.md for information on joining the development team.
+
+## Related Projects
+
+- [Devvit](https://developers.reddit.com/docs/devvit) - Reddit's app development platform
+- [Kiro](https://github.com/reddit/devvit) - Automation and workflow tool
+- [Reddit GameOnReddit](https://www.reddit.com/r/GameOnReddit/) - Gaming community on Reddit
