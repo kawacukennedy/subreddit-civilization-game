@@ -1,14 +1,17 @@
 {
   "private": true,
   "name": "subreddit-civilization",
-  "version": "0.12.1",
+  "version": "1.0.0",
   "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {
+    "build": "yarn clean && yarn test && echo 'Build complete'",
     "clean": "rm -rf .turbo coverage dist",
     "clobber": "yarn clean && rm -rf node_modules",
+    "dev": "echo 'Development mode - use Devvit CLI'",
     "lint": "redlint .",
     "lint:fix": "yarn lint --fix",
+    "prepublishOnly": "yarn build",
     "test": "yarn test:unit && yarn test:types && yarn lint",
     "test:types": "tsc --noEmit",
     "test:unit": "vitest run",

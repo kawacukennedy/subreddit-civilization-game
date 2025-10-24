@@ -6,6 +6,7 @@ interface DecisionPanelProps {
   eventBody: string;
   options: string[];
   onChoose: (option: string) => void;
+  loading?: boolean;
 }
 
 export const DecisionPanel: React.FC<DecisionPanelProps> = ({
@@ -13,6 +14,7 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
   eventBody,
   options,
   onChoose,
+  loading = false,
 }) => {
   if (!options || options.length === 0) {
     return (
@@ -30,12 +32,14 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
         {options.map((option, index) => (
           <button
             key={index}
-            className="w-full p-3 bg-blue-500 hover:bg-blue-600 text-white rounded disabled:opacity-50"
-            onPress="chooseOption"
+            className={`w-full p-3 text-white rounded disabled:opacity-50 ${
+              loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+            }`}
+            onPress={loading ? undefined : "chooseOption"}
             data={{ option }}
-            disabled={!option}
+            disabled={!option || loading}
           >
-            {option || 'Option'}
+            {loading ? 'Processing...' : (option || 'Option')}
           </button>
         ))}
       </div>
