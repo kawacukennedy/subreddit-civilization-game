@@ -3,7 +3,7 @@ import { generateNarrative } from '../../.kiro/specs/narrative.spec';
 
 describe('narrative', () => {
   it('should generate narrative for Bronze famine', () => {
-    const input = { era: 'Bronze', event: 'Famine hits your lands', choice: 'Share food with others' };
+    const input = { era: 'Bronze', event: 'A famine has struck your lands. Food supplies are dwindling.', choice: 'Share food with allies' };
     const output = generateNarrative(input);
     expect(output.description).toContain('generosity');
   });

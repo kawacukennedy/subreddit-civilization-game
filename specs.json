@@ -1,0 +1,187 @@
+{
+  "civilization": {
+    "name": "string",
+    "era": "number",
+    "population": "number",
+    "resources": {
+      "food": "number",
+      "culture": "number",
+      "defense": "number",
+      "technology": "number"
+    },
+    "morale": "number",
+    "status": "string",
+    "subreddit": "string",
+    "decisions": "number"
+  },
+  "events": [
+    {
+      "id": "famine",
+      "type": "Resource Management",
+      "description": "A famine has struck your lands. Food supplies are dwindling.",
+      "options": [
+        {
+          "text": "Share food with allies",
+          "effect": "food -= 15, morale += 10"
+        },
+        {
+          "text": "Conserve resources",
+          "effect": "food += 5, morale -= 5"
+        },
+        {
+          "text": "Trade for food",
+          "effect": "food += 10, culture -= 5"
+        }
+      ],
+      "trigger": "food < 30"
+    },
+    {
+      "id": "invasion",
+      "type": "Political Events",
+      "description": "Barbarians are invading! Prepare your defenses.",
+      "options": [
+        {
+          "text": "Fortify defenses",
+          "effect": "defense += 10, food -= 5"
+        },
+        {
+          "text": "Negotiate peace",
+          "effect": "morale += 5, culture -= 10"
+        }
+      ],
+      "trigger": "random < 0.3"
+    },
+    {
+      "id": "festival",
+      "type": "Cultural Growth",
+      "description": "A festival is planned. How to celebrate?",
+      "options": [
+        {
+          "text": "Grand celebration",
+          "effect": "culture += 15, food -= 10"
+        },
+        {
+          "text": "Modest event",
+          "effect": "culture += 5, morale += 5"
+        }
+      ],
+      "trigger": "morale > 70"
+    },
+    {
+      "id": "invention",
+      "type": "Cultural Growth",
+      "description": "An inventor proposes a new technology.",
+      "options": [
+        {
+          "text": "Fund the invention",
+          "effect": "technology += 10, food -= 5"
+        },
+        {
+          "text": "Decline",
+          "effect": "morale -= 5"
+        }
+      ],
+      "trigger": "technology < 50"
+    },
+    {
+      "id": "alliance",
+      "type": "Political Events",
+      "description": "Another civilization offers an alliance.",
+      "options": [
+        {
+          "text": "Accept alliance",
+          "effect": "morale += 10, defense += 5"
+        },
+        {
+          "text": "Reject",
+          "effect": "morale -= 5"
+        }
+      ],
+      "trigger": "random < 0.2"
+    },
+    {
+      "id": "drought",
+      "type": "Environmental Challenges",
+      "description": "A drought affects your water supply.",
+      "options": [
+        {
+          "text": "Build irrigation",
+          "effect": "technology += 5, food -= 10"
+        },
+        {
+          "text": "Ration water",
+          "effect": "food -= 5, morale -= 10"
+        }
+      ],
+      "trigger": "random < 0.25"
+    },
+    {
+      "id": "discovery",
+      "type": "Cultural Growth",
+      "description": "Explorers discover a new land rich in resources.",
+      "options": [
+        {
+          "text": "Colonize the land",
+          "effect": "food += 20, defense -= 5"
+        },
+        {
+          "text": "Establish trade routes",
+          "effect": "culture += 10, technology += 5"
+        },
+        {
+          "text": "Leave it unexplored",
+          "effect": "morale += 5"
+        }
+      ],
+      "trigger": "era >= 2 and random < 0.2"
+    },
+    {
+      "id": "revolution",
+      "type": "Political Events",
+      "description": "Dissatisfied citizens are calling for change.",
+      "options": [
+        {
+          "text": "Grant reforms",
+          "effect": "morale += 15, culture -= 10"
+        },
+        {
+          "text": "Suppress the uprising",
+          "effect": "defense += 10, morale -= 20"
+        }
+      ],
+      "trigger": "morale < 40"
+    },
+    {
+      "id": "plague",
+      "type": "Environmental Challenges",
+      "description": "A mysterious plague spreads through your population.",
+      "options": [
+        {
+          "text": "Quarantine affected areas",
+          "effect": "population -= 100, food -= 15"
+        },
+        {
+          "text": "Seek medical knowledge",
+          "effect": "technology += 10, population -= 50"
+        }
+      ],
+      "trigger": "random < 0.15"
+    },
+    {
+      "id": "golden_age",
+      "type": "Cultural Growth",
+      "description": "Your civilization enters a golden age of creativity.",
+      "options": [
+        {
+          "text": "Invest in arts",
+          "effect": "culture += 25, morale += 10"
+        },
+        {
+          "text": "Focus on science",
+          "effect": "technology += 15, culture += 10"
+        }
+      ],
+      "trigger": "morale > 80 and culture > 60"
+    }
+  ]
+}

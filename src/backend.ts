@@ -76,12 +76,12 @@ export const postDecision = async (context: Context, decision: string): Promise<
   }
 };
 
-const getEraName = (era: number): string => {
+export const getEraName = (era: number): string => {
   const eras = ['Stone', 'Bronze', 'Iron', 'Medieval', 'Modern'];
   return eras[era - 1] || 'Unknown';
 };
 
-const calculateScore = (civ: Civilization): number => {
+export const calculateScore = (civ: Civilization): number => {
   return civ.resources.culture + civ.resources.technology + civ.resources.defense + civ.morale;
 };
 

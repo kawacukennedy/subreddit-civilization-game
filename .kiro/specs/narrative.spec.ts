@@ -98,10 +98,3 @@ export const generateNarrative = (input: NarrativeInput): NarrativeOutput => {
 
   return { description: outcome };
 };
-
-  const eraTemplates = templates[input.era as keyof typeof templates] || {};
-  const eventTemplates = eraTemplates[input.event as keyof typeof eraTemplates] || {};
-  const outcome = eventTemplates[input.choice as keyof typeof eventTemplates] || 'Outcome unknown.';
-
-  return { description: outcome };
-};

@@ -20,8 +20,10 @@ export const updateResources = (civ: Civilization, changes: Partial<Civilization
   return {
     ...civ,
     resources: {
-      ...civ.resources,
-      ...changes,
+      food: civ.resources.food + (changes.food || 0),
+      culture: civ.resources.culture + (changes.culture || 0),
+      defense: civ.resources.defense + (changes.defense || 0),
+      technology: civ.resources.technology + (changes.technology || 0),
     },
   };
 };
