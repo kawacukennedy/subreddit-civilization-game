@@ -139,6 +139,100 @@ export const events: Event[] = [
     ],
     trigger_condition: (civ: Civilization) => Math.random() < 0.25,
   },
+  {
+    id: 'discovery',
+    type: 'Cultural Growth',
+    description: 'Explorers discover a new land rich in resources.',
+    options: [
+      {
+        text: 'Colonize the land',
+        effect: (civ: Civilization) => {
+          civ.resources.food += 20;
+          civ.resources.defense -= 5;
+        },
+      },
+      {
+        text: 'Establish trade routes',
+        effect: (civ: Civilization) => {
+          civ.resources.culture += 10;
+          civ.resources.technology += 5;
+        },
+      },
+      {
+        text: 'Leave it unexplored',
+        effect: (civ: Civilization) => {
+          civ.morale += 5;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => civ.era >= 2 && Math.random() < 0.2,
+  },
+  {
+    id: 'revolution',
+    type: 'Political Events',
+    description: 'Dissatisfied citizens are calling for change.',
+    options: [
+      {
+        text: 'Grant reforms',
+        effect: (civ: Civilization) => {
+          civ.morale += 15;
+          civ.resources.culture -= 10;
+        },
+      },
+      {
+        text: 'Suppress the uprising',
+        effect: (civ: Civilization) => {
+          civ.resources.defense += 10;
+          civ.morale -= 20;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => civ.morale < 40,
+  },
+  {
+    id: 'plague',
+    type: 'Environmental Challenges',
+    description: 'A mysterious plague spreads through your population.',
+    options: [
+      {
+        text: 'Quarantine affected areas',
+        effect: (civ: Civilization) => {
+          civ.population -= 100;
+          civ.resources.food -= 15;
+        },
+      },
+      {
+        text: 'Seek medical knowledge',
+        effect: (civ: Civilization) => {
+          civ.resources.technology += 10;
+          civ.population -= 50;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => Math.random() < 0.15,
+  },
+  {
+    id: 'golden_age',
+    type: 'Cultural Growth',
+    description: 'Your civilization enters a golden age of creativity.',
+    options: [
+      {
+        text: 'Invest in arts',
+        effect: (civ: Civilization) => {
+          civ.resources.culture += 25;
+          civ.morale += 10;
+        },
+      },
+      {
+        text: 'Focus on science',
+        effect: (civ: Civilization) => {
+          civ.resources.technology += 15;
+          civ.resources.culture += 10;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => civ.morale > 80 && civ.resources.culture > 60,
+  },
 ];
 
 export const getRandomEvent = (civ: Civilization): Event | null => {
