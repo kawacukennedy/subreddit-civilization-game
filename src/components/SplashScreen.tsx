@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { t } from '../i18n';
 
 export const SplashScreen: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ export const SplashScreen: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        Enter the Era of Subreddits
+        {t('app.title')}
       </motion.h1>
       <motion.button
         className="px-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-lg text-xl font-semibold"
@@ -19,7 +20,7 @@ export const SplashScreen: React.FC = () => {
         transition={{ delay: 1, duration: 0.5 }}
         onPress="startCivilization"
       >
-        Start Civilization
+        {t('app.startCivilization')}
       </motion.button>
     </div>
   );

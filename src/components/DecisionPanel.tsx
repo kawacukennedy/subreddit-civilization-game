@@ -1,4 +1,5 @@
 import React from 'react';
+import { t } from '../i18n';
 
 interface DecisionPanelProps {
   eventTitle: string;
@@ -16,14 +17,14 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
   if (!options || options.length === 0) {
     return (
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
-        <p className="text-gray-700">No active event. Check back later!</p>
+        <p className="text-gray-700">{t('app.noEvent')}</p>
       </div>
     );
   }
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">{eventTitle || 'Daily Event'}</h2>
+      <h2 className="text-2xl font-bold mb-4">{eventTitle || t('app.dailyEvent')}</h2>
       <p className="text-gray-700 mb-6">{eventBody || 'An event is occurring.'}</p>
       <div className="space-y-3">
         {options.map((option, index) => (

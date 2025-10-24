@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { t } from '../i18n';
 
 interface Civilization {
   name: string;
@@ -17,7 +18,7 @@ interface LeaderboardProps {
 export const Leaderboard: React.FC<LeaderboardProps> = ({ civilizations }) => {
   return (
     <div className="bg-gray-100 p-6 rounded-lg">
-      <h3 className="text-xl font-bold mb-4">Leaderboard</h3>
+      <h3 className="text-xl font-bold mb-4">{t('app.leaderboard')}</h3>
       <div className="space-y-2">
         {civilizations.map((civ, index) => (
           <motion.div

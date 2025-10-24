@@ -1,0 +1,20 @@
+{
+  "app": {
+    "title": "Civilización de Subreddits",
+    "startCivilization": "Iniciar Civilización",
+    "dailyEvent": "Evento Diario",
+    "leaderboard": "Tabla de Clasificación",
+    "eventHistory": "Historial de Eventos",
+    "noEvent": "No hay evento activo. ¡Vuelve más tarde!",
+    "noEvents": "Aún no hay eventos.",
+    "darkMode": "Modo Oscuro",
+    "lightMode": "Modo Claro"
+  },
+  "eras": {
+    "Stone": "Edad de Piedra",
+    "Bronze": "Edad de Bronce",
+    "Iron": "Edad de Hierro",
+    "Medieval": "Era Medieval",
+    "Modern": "Era Moderna"
+  }
+}

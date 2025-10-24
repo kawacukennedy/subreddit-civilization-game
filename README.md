@@ -79,6 +79,14 @@ subreddit-civilization/
 
 ## Deployment
 
+### Prerequisites
+
+- Reddit Developer Account
+- Devvit CLI authenticated: `devvit login`
+- App registered in Reddit Developer Portal
+
+### Steps
+
 1. **Build the App**:
    ```bash
    yarn build
@@ -88,11 +96,41 @@ subreddit-civilization/
    ```bash
    devvit deploy
    ```
+   This uploads the app to Reddit's servers.
 
 3. **Create Interactive Post**:
-   - Go to Reddit Developer Portal
-   - Create a new post with the Devvit app
-   - Set up interactive elements
+   - Go to [Reddit Developer Portal](https://developers.reddit.com)
+   - Select your app
+   - Create a new post or update existing one
+   - Enable interactive features
+   - Publish the post
+
+4. **Test the App**:
+   - Visit the post on Reddit
+   - Interact with buttons to test functionality
+   - Check comments for game updates
+
+### Demo Setup
+
+To create a demo for r/GameOnReddit:
+
+1. Deploy the app as above
+2. Create a post titled "Subreddit Civilization - Multiplayer Strategy Game"
+3. Include description: "Build and compete as civilizations through community decisions!"
+4. Share the post link in submission
+
+### Troubleshooting
+
+- **Authentication Issues**: Ensure `devvit login` is run
+- **Build Errors**: Check Node.js version (v22+)
+- **Runtime Errors**: Check Reddit API permissions
+- **Interactive Elements Not Working**: Verify post is published and app is deployed
+
+### Monitoring
+
+- Use Reddit Developer Portal to monitor app usage
+- Check logs in Devvit CLI: `devvit logs`
+- Update app version for bug fixes: increment version in package.json
 
 ## Kiro Integration
 
@@ -124,6 +162,56 @@ See `.kiro/` directory for implementation details.
 
 MIT License - see LICENSE file for details.
 
+## API Reference
+
+### Backend Functions
+
+- `getCivilizations(context)`: Retrieve all civilizations
+- `postDecision(context, decision)`: Submit a vote for current event
+- `updateLeaderboard(context)`: Update and sort leaderboard
+- `advanceEra(context)`: Manually advance era (admin function)
+
+### Kiro Specs
+
+- `Civilization`: Core game entity with resources and stats
+- `Event`: Game events with options and effects
+- `generateNarrative(input)`: Create procedural story outcomes
+
+## Architecture
+
+The app uses a modular architecture:
+
+- **Frontend**: React components with Devvit Web
+- **Backend**: Devvit runtime with Reddit API integration
+- **Data**: Key-Value store for persistence
+- **Automation**: Kiro for game logic and balancing
+
+## Performance
+
+- Event rendering: <100ms target
+- Responsive design for mobile and desktop
+- Optimized for Reddit's interactive posts
+
+## Future Enhancements
+
+- AI-powered event generation
+- Cross-subreddit alliances
+- Advanced resource trading
+- Mobile app companion
+
+## Support
+
+For questions or issues:
+
+- GitHub Issues: https://github.com/kawacukennedy/subreddit-civilization-game/issues
+- Reddit Community: r/devvit or r/GameOnReddit
+
 ## Acknowledgments
 
 Built for the Reddit GameOnReddit challenge using Devvit and Kiro.
+
+## Contributors
+
+- Kawacu Kennedy (Project Lead)
+
+See CONTRIBUTING.md for how to join the team.
