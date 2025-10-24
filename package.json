@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "subreddit-civilization",
+  "version": "0.12.1",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf .turbo coverage dist",
+    "clobber": "yarn clean && rm -rf node_modules",
+    "lint": "redlint .",
+    "lint:fix": "yarn lint --fix",
+    "test": "yarn test:unit && yarn test:types && yarn lint",
+    "test:types": "tsc --noEmit",
+    "test:unit": "vitest run",
+    "test:unit-with-coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@devvit/public-api": "0.12.1",
+    "@devvit/shared-types": "0.12.1"
+  },
+  "devDependencies": {
+    "@devvit/tsconfig": "0.12.1",
+    "eslint": "9.11.1",
+    "typescript": "5.8.3",
+    "vitest": "1.6.1",
+    "tailwindcss": "^3.4.0",
+    "framer-motion": "^11.0.0"
+  }
+}
