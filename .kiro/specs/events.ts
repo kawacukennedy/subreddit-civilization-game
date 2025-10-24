@@ -51,9 +51,94 @@ export const events: Event[] = [
         },
       },
     ],
-    trigger_condition: (civ: Civilization) => Math.random() < 0.3, // random
+    trigger_condition: (civ: Civilization) => Math.random() < 0.3,
   },
-  // Add more events
+  {
+    id: 'festival',
+    type: 'Cultural Growth',
+    description: 'A festival is planned. How to celebrate?',
+    options: [
+      {
+        text: 'Grand celebration',
+        effect: (civ: Civilization) => {
+          civ.resources.culture += 15;
+          civ.resources.food -= 10;
+        },
+      },
+      {
+        text: 'Modest event',
+        effect: (civ: Civilization) => {
+          civ.resources.culture += 5;
+          civ.morale += 5;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => civ.morale > 70,
+  },
+  {
+    id: 'invention',
+    type: 'Cultural Growth',
+    description: 'An inventor proposes a new technology.',
+    options: [
+      {
+        text: 'Fund the invention',
+        effect: (civ: Civilization) => {
+          civ.resources.technology += 10;
+          civ.resources.food -= 5;
+        },
+      },
+      {
+        text: 'Decline',
+        effect: (civ: Civilization) => {
+          civ.morale -= 5;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => civ.resources.technology < 50,
+  },
+  {
+    id: 'alliance',
+    type: 'Political Events',
+    description: 'Another civilization offers an alliance.',
+    options: [
+      {
+        text: 'Accept alliance',
+        effect: (civ: Civilization) => {
+          civ.morale += 10;
+          civ.resources.defense += 5;
+        },
+      },
+      {
+        text: 'Reject',
+        effect: (civ: Civilization) => {
+          civ.morale -= 5;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => Math.random() < 0.2,
+  },
+  {
+    id: 'drought',
+    type: 'Environmental Challenges',
+    description: 'A drought affects your water supply.',
+    options: [
+      {
+        text: 'Build irrigation',
+        effect: (civ: Civilization) => {
+          civ.resources.technology += 5;
+          civ.resources.food -= 10;
+        },
+      },
+      {
+        text: 'Ration water',
+        effect: (civ: Civilization) => {
+          civ.resources.food -= 5;
+          civ.morale -= 10;
+        },
+      },
+    ],
+    trigger_condition: (civ: Civilization) => Math.random() < 0.25,
+  },
 ];
 
 export const getRandomEvent = (civ: Civilization): Event | null => {

@@ -58,31 +58,18 @@ export const postDecision = async (context: Context, decision: string): Promise<
   const event = await getCurrentEvent(context);
   if (!civ || !event) return;
 
-  const option = event.options.find(o => o.text === decision);
-  if (option) {
-    option.effect(civ);
-    civ.decisions += 1;
-    if (civ.decisions >= 5 && civ.era < 5) {
-      civ.era += 1;
-      onEraChange(civ.era);
-      civ.decisions = 0;
-    }
-    await saveCivilization(context, civ);
-    // Generate narrative
-    const narrative = generateNarrative({
-      era: getEraName(civ.era),
-      event: event.description,
-      choice: decision,
-    });
-    const post = await context.reddit.getCurrentPost();
-    await context.reddit.submitComment({
-      id: post.id,
-      text: narrative.description,
-    });
-    // Clear current event
-    const key = `event_${civ.subreddit}`;
-    await context.kvStore.delete(key);
-  }
+  // Store vote instead of applying immediately
+  const votesKey = `votes_${civ.subreddit}`;
+  const votes = (await context.kvStore.get(votesKey)) || {};
+  votes[decision] = (votes[decision] || 0) + 1;
+  await context.kvStore.put(votesKey, votes);
+
+  // Optionally, submit a comment for the vote
+  const post = await context.reddit.getCurrentPost();
+  await context.reddit.submitComment({
+    id: post.id,
+    text: `Vote cast for: ${decision}`,
+  });
 };
 
 const getEraName = (era: number): string => {
@@ -98,10 +85,36 @@ export const updateLeaderboard = async (context: Context): Promise<void> => {
   const civilizations = await getCivilizations(context);
   civilizations.sort((a, b) => calculateScore(b) - calculateScore(a));
   await context.kvStore.put('leaderboard', civilizations.slice(0, 10));
+
+  // Check for winner
+  const completed = civilizations.filter(civ => civ.era >= 5);
+  if (completed.length > 0) {
+    const winner = completed[0]; // highest score
+    const post = await context.reddit.getCurrentPost();
+    await context.reddit.submitComment({
+      id: post.id,
+      text: `🏆 Winner: ${winner.name} with score ${calculateScore(winner)}! Game over.`,
+    });
+    // Perhaps end the game or something
+  }
 };
 
 export const getLeaderboard = async (context: Context): Promise<Civilization[]> => {
   return await context.kvStore.get('leaderboard') || [];
+};
+
+export const addToEventHistory = async (context: Context, subreddit: string, event: any): Promise<void> => {
+  const key = `history_${subreddit}`;
+  const history = (await context.kvStore.get(key)) || [];
+  history.push(event);
+  // Keep last 10
+  if (history.length > 10) history.shift();
+  await context.kvStore.put(key, history);
+};
+
+export const getEventHistory = async (context: Context, subreddit: string): Promise<any[]> => {
+  const key = `history_${subreddit}`;
+  return (await context.kvStore.get(key)) || [];
 };
 
 export const advanceEra = async (context: Context): Promise<void> => {
@@ -114,4 +127,61 @@ export const advanceEra = async (context: Context): Promise<void> => {
   }
   onNewTurn();
   await generateNewEvent(context);
+};
+
+export const processTurnForCiv = async (context: Context, civ: Civilization): Promise<void> => {
+  const votesKey = `votes_${civ.subreddit}`;
+  const votes = await context.kvStore.get(votesKey);
+  if (!votes || Object.keys(votes).length === 0) return; // no votes
+
+  // Passive gains from upvotes (number of votes)
+  const totalVotes = Object.values(votes).reduce((sum, count) => sum + count, 0);
+  civ.resources.culture += Math.floor(totalVotes / 10); // example gain
+
+  // Find majority choice
+  const majorityChoice = Object.keys(votes).reduce((a, b) => votes[a] > votes[b] ? a : b);
+
+  const event = await getCurrentEvent(context);
+  if (!event) return;
+
+  const option = event.options.find(o => o.text === majorityChoice);
+  if (option) {
+    option.effect(civ);
+    civ.decisions += 1;
+    if (civ.decisions >= 5 && civ.era < 5) {
+      civ.era += 1;
+      onEraChange(civ.era);
+      civ.decisions = 0;
+    }
+    await saveCivilization(context, civ);
+
+    // Generate narrative
+    const narrative = generateNarrative({
+      era: getEraName(civ.era),
+      event: event.description,
+      choice: majorityChoice,
+    });
+
+    // Store in history
+    await addToEventHistory(context, civ.subreddit, {
+      id: Date.now().toString(),
+      description: event.description,
+      outcome: narrative.description,
+      date: new Date().toISOString(),
+    });
+
+    const post = await context.reddit.getCurrentPost();
+    await context.reddit.submitComment({
+      id: post.id,
+      text: `Majority choice: ${majorityChoice}. ${narrative.description}`,
+    });
+  }
+
+  // Clear votes and event
+  await context.kvStore.delete(votesKey);
+  const eventKey = `event_${civ.subreddit}`;
+  await context.kvStore.delete(eventKey);
+
+  // Generate new event
+  await generateNewEventForCiv(context, civ);
 };

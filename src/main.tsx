@@ -1,6 +1,6 @@
 import { Devvit } from '@devvit/public-api';
 import { App } from './App';
-import { getCivilizations, postDecision, updateLeaderboard, advanceEra, getCurrentCivilization, getCurrentEvent, getLeaderboard } from './backend';
+import { getCivilizations, postDecision, updateLeaderboard, advanceEra, getCurrentCivilization, getCurrentEvent, getLeaderboard, processTurnForCiv } from './backend';
 import { initialCivilization } from './state/gameState';
 
 Devvit.configure({
@@ -46,9 +46,7 @@ Devvit.addScheduler({
   onRun: async (event, context) => {
     const civilizations = await getCivilizations(context);
     for (const civ of civilizations) {
-      // Advance era if conditions met, but since decisions are per civ, perhaps not
-      // Instead, generate new event for each
-      await generateNewEventForCiv(context, civ);
+      await processTurnForCiv(context, civ);
     }
     await updateLeaderboard(context);
   },
