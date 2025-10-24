@@ -13,19 +13,28 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
   options,
   onChoose,
 }) => {
+  if (!options || options.length === 0) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+        <p className="text-gray-700">No active event. Check back later!</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">{eventTitle}</h2>
-      <p className="text-gray-700 mb-6">{eventBody}</p>
+      <h2 className="text-2xl font-bold mb-4">{eventTitle || 'Daily Event'}</h2>
+      <p className="text-gray-700 mb-6">{eventBody || 'An event is occurring.'}</p>
       <div className="space-y-3">
         {options.map((option, index) => (
           <button
             key={index}
-            className="w-full p-3 bg-blue-500 hover:bg-blue-600 text-white rounded"
+            className="w-full p-3 bg-blue-500 hover:bg-blue-600 text-white rounded disabled:opacity-50"
             onPress="chooseOption"
             data={{ option }}
+            disabled={!option}
           >
-            {option}
+            {option || 'Option'}
           </button>
         ))}
       </div>
